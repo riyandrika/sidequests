@@ -109,4 +109,4 @@ while loop:
     if not any([0 in grid[i] for i in range(number)]):
         loop = False
 
-print (np.around(grid))
+print(grid)
