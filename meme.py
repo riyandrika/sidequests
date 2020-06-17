@@ -1,5 +1,6 @@
 import numpy as np
 
+# Get number input from user. Prompt for integer if required.
 input_request = True
 while input_request:
     number = input("Length of square: ")
@@ -7,8 +8,9 @@ while input_request:
         number = int(number)
         input_request = False
     except:
-        print("Enter integer la idiot")
+        print("Enter a positive number!")
 
+# Create an n x n grid
 grid = np.zeros((number, number))
 count = 1 # Initiating first count at 1
 centre = (number - 1)/2 # Initiating centre of the grid
@@ -18,6 +20,7 @@ new_col = current_col + 1
 count += 1
 action = None
 
+# Define functions for a single step in the four directions
 def up():
     global current_col
     global current_row
@@ -62,10 +65,11 @@ def right():
     count += 1
     action = "right"
 
+# Function to execute a single step in a chosen direction
 def move():
     global current_col
     global current_row
-    #if right, try down. Else go right.
+    #if previous step = right, try down. Else continue right.
     global action
     if action == "right":
         new_row = current_row + 1
@@ -75,7 +79,7 @@ def move():
         else:
             right()
 
-    #if down, try left. Else go down.
+    #if previous step = down, try left. Else continue down.
     if action == "down":
         new_col = current_col - 1
         if grid[current_row, new_col] == 0:
@@ -84,7 +88,7 @@ def move():
         else:
             down()
 
-    #if left, try up. Else go left.
+    #if previous step = left, try up. Else continue left.
     if action == "left":
         new_row = current_row - 1
         if grid[new_row, current_col] == 0:
@@ -93,7 +97,7 @@ def move():
         else:
             left()
 
-    #if up, try right. Else go up.
+    #if previous step = up, try right. Else continue up.
     if action == "up":
         new_col = current_col + 1
         if grid[current_row, new_col] == 0:
@@ -101,8 +105,10 @@ def move():
             action = "right"
         else:
             up()
-
+            
+# Take the first step to the right to initiate the clockwise spiral
 right()
+
 loop = True
 while loop:
     move()
